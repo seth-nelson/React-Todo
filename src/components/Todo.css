@@ -1,0 +1,14 @@
+.tasks {
+    background-color: #540483;
+    width: 30%;
+    height: 100px;
+    text-align: left;
+    margin: 4px 0;
+    padding-left: 8px;
+    cursor: pointer;
+}
+
+.tasks.complete {
+    background-color: #06ce31;
+    text-decoration: line-through;
+}

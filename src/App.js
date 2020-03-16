@@ -2,23 +2,25 @@ import React from 'react';
 import TodoForm from './components/TodoForm.js';
 import TodoList from './components/TodoList.js';
 
-const todoTasks = [
+const tasks = [
   {
     task: 'mow the lawn',
     id: 901,
-    complete: false,
+    complete: false
   },
   {
     task: 'take out recycling',
     id: 902,
-    complete: false,
+    complete: false
   },
   {
     task: 'do laundry',
     id: 903,
-    complete: false,
+    complete: false
   }
 ];
+
+console.log(tasks);
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -27,7 +29,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todoTasks
+      tasks: tasks
     };
   }
 
@@ -35,28 +37,52 @@ class App extends React.Component {
   toggleCompleted = todoId => {
     console.log('App: Toggle Completed')
     this.setState({
-      todoTasks: this.state.todoTasks.map(todo => {
+      tasks: this.state.tasks.map(todo => {
         if (todo.id === todoId) {
           return {
             ...todo,
-            completed: !todo.completed
+            complete: !todo.complete
           };
         }
         return todo;
       })
     });
   };
+
+
+  clearTodo = () => {
+    console.log("This has been completed");
+    this.setState({
+      tasks: this.state.tasks.filter(task => {
+        return task.complete;
+      })
+    });
+  };
   
+
+  addTodo = taskName => {
+    this.setState({
+      tasks: [
+        ...this.state.tasks,
+        {
+          name: taskName,
+          complete: false,
+          id: (Math.random() * Math.random()).toString(9).substr(2, 9)
+        }
+      ]
+    });
+  };
+
 
   render() {
     return (
       <div className='app-container'>
         <div className='header'>
           <h2>Tasks for the day!</h2>
-          {/* <TodoForm /> */}
+          <TodoForm />
         </div>
           <TodoList 
-            todos={this.state.todoTasks}
+            tasks={this.state.tasks}
             toggleCompleted={this.toggleCompleted}
             // clearCompleted={this.clearCompleted}
           />
